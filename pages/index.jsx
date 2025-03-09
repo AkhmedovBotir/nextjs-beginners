@@ -1,33 +1,28 @@
-import Head from 'next/head'
-import Link from 'next/link'
-import { useRouter } from 'next/router'
-import React from 'react'
+import { api } from "@/components/api/api"
+import axios from "axios"
+import { useEffect, useState } from "react"
 
-export default function Index() {
-    const router = useRouter()
-    const handleRouting = () => {
-        router.push('/about')
-    }
-    return (
-        <div>
-            <Head>
-                <title>Index</title>
-            </Head>
+function index() {
+    const [ data , setData ] = useState([])
+    useEffect(() => {
+        // fetch(`${api}photos`)
+        // .then(response => response.json())
+        // .then(data => setData(data))
+        axios.get(`${api}posts`)
+        .then(response => setData(response.data))
+    }, [])
 
-            <div className='flex flex-col justify-center items-center h-[100vh] w-[100%]'>
-                <Link href="/about">
-                    <button>About</button>
-                </Link>
-                <br />
-                <Link href="/contact">
-                    <button>Contact</button>
-                </Link>
-
-                <button onClick={handleRouting}>About</button>
-                {/* <Link href="/user">
-                    <button>User</button>
-                </Link>  */}
-            </div>
-        </div>
-    )
+  return (
+    <div>
+        <h1>API</h1>
+            {data.map(item => (
+                <div key={item.id}>
+                    <h2>{item.title}</h2>
+                    <p>{item.body}</p>
+                </div>
+            ))}
+    </div>
+  )
 }
+
+export default index
