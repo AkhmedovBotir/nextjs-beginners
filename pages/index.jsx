@@ -17,6 +17,13 @@ export default function Index() {
                 <Link href="/contact">
                     <button>Contact</button>
                 </Link>
+
+                <Link href="/user">
+                    <button>User</button>
+                </Link>
+                <Link href="/user/12">
+                    <button>User id</button>
+                </Link>
             </div>
         </div>
     )
